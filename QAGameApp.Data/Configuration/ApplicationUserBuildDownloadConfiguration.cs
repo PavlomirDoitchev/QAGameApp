@@ -10,6 +10,10 @@ public class ApplicationUserBuildDownloadConfiguration : IEntityTypeConfiguratio
 			.HasKey(d => new { d.ApplicationUserId, d.GameBuildId });
 
 		builder
+			.Property(d => d.ApplicationUserId)
+			.IsRequired();
+
+		builder
 			.Property(d => d.IsDeleted)
 			.HasDefaultValue(false);
 
@@ -24,5 +28,8 @@ public class ApplicationUserBuildDownloadConfiguration : IEntityTypeConfiguratio
 			.WithMany()
 			.HasForeignKey(d => d.GameBuildId)
 			.OnDelete(DeleteBehavior.Cascade);
+
+		builder
+			.HasQueryFilter(d => d.IsDeleted == false && d.GameBuild.IsDeleted == false);
 	}
 }

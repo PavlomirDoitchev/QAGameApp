@@ -18,6 +18,7 @@ public class GameBuildConfiguration : IEntityTypeConfiguration<GameBuild>
 
 		builder
 			.Property(gb => gb.DownloadUrl)
+			.HasMaxLength(2048)
 			.IsRequired();
 
 		builder
